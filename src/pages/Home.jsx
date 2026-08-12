@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import Pricing  from "../components/Pricing";
 import Navbar   from "../components/Navbar";   // ← alag file
 import Footer   from "../components/Footer";   // ← alag file
-import DemoForm from "../components/DemoForm";
+import DemoForm from "../components/Demoform";
 
 // ─── ALL CSS (Navbar + Footer ka CSS unki apni files mein hai) ──────────────
 const css = `

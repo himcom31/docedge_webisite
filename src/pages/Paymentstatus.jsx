@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import PaymentReceiptPDF from "./PaymentReceiptPDF";
+import PaymentReceiptPDF from "./Paymentreceiptpdf";
 
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
