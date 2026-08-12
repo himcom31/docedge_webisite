@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Pricing.css";
 
-const API_URL ="http://localhost:5000";
+const API_URL ="https://software.docedge.in"
 
 // ─── Reveal Hook ──────────────────────────────────────────────────────────────
 function useReveal(ref) {
