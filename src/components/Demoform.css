@@ -1,0 +1,423 @@
+/* ═══════════════════════════════════════════════════════════════
+   DemoForm.css  —  "Book Your Free Demo" section
+   Uses the same CSS custom properties as the main app
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── SECTION SHELL ── */
+.lead-section {
+  padding: 100px 5%;
+  background: linear-gradient(135deg, var(--navy), var(--navy-2));
+  position: relative;
+  overflow: hidden;
+}
+
+/* decorative radial blobs */
+.lead-blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.lead-blob--top-right {
+  top: -100px;
+  right: -100px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(0, 174, 239, 0.15), transparent 70%);
+}
+.lead-blob--bottom-left {
+  bottom: -80px;
+  left: -80px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(0, 174, 239, 0.08), transparent 70%);
+}
+
+/* ── LAYOUT ── */
+.lead-container {
+  max-width: 1160px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.lead-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+/* ── LEFT PANEL ── */
+.lead-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 14px;
+  border-radius: 100px;
+  background: rgba(0, 174, 239, 0.15);
+  border: 1px solid rgba(0, 174, 239, 0.3);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 16px;
+}
+
+.lead-headline {
+  font-family: var(--font);
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  color: white;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+.lead-headline__accent {
+  color: var(--cyan);
+}
+
+.lead-sub {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 28px;
+}
+
+/* perks list */
+.lead-perks {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.lead-perks__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+.lead-perks__tick {
+  color: var(--cyan);
+  font-weight: 800;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* contact buttons */
+.lead-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.lead-contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s;
+  width: fit-content;
+  font-family: var(--font);
+}
+.lead-contact-btn--wa {
+  background: #25d366;
+  color: white;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35);
+}
+.lead-contact-btn--wa:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45);
+}
+.lead-contact-btn--call {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+}
+.lead-contact-btn--call:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* ── FORM CARD ── */
+.demo-form-wrap {
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  padding: 40px 32px;
+}
+
+.demo-form-title {
+  font-family: var(--font);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.demo-form-subtitle {
+  color: var(--gray-500);
+  font-size: 0.9rem;
+  margin-bottom: 28px;
+}
+
+/* form elements */
+.demo-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.demo-form__group {
+  margin-bottom: 18px;
+}
+
+.demo-form__label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--gray-600);
+  margin-bottom: 6px;
+}
+
+.demo-form__input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 12px;
+  font-family: var(--font);
+  font-size: 0.9rem;
+  background: var(--gray-50);
+  outline: none;
+  transition: border-color 0.2s;
+  color: var(--gray-800);
+  appearance: auto;
+}
+.demo-form__input:focus {
+  border-color: var(--cyan);
+}
+
+.demo-form__submit {
+  width: 100%;
+  padding: 16px 24px;
+  background: var(--gradient-cyan);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 6px 20px rgba(0, 174, 239, 0.35);
+  margin-top: 12px;
+}
+.demo-form__submit:hover:not(:disabled) {
+  box-shadow: 0 10px 28px rgba(0, 174, 239, 0.5);
+  transform: translateY(-1px);
+}
+.demo-form__submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.demo-form__privacy {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  text-align: center;
+  margin-top: 16px;
+}
+
+/* ── THANK-YOU STATE ── */
+.thankyou {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.thankyou__icon {
+  font-size: 48px;
+  color: var(--green);
+  margin-bottom: 16px;
+}
+
+.thankyou__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.thankyou__sub {
+  color: var(--gray-500);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.thankyou__box {
+  background: var(--gray-50);
+  border-radius: 20px;
+  padding: 24px;
+  text-align: left;
+  margin-bottom: 24px;
+  border: 1px solid var(--gray-200);
+}
+
+.thankyou__box-heading {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 16px;
+  color: var(--navy);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.thankyou__box-text {
+  margin-bottom: 16px;
+  color: var(--gray-600);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.thankyou__wa-row {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid var(--gray-200);
+}
+
+.thankyou__wa-emoji {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.thankyou__wa-num {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.thankyou__wa-label {
+  font-size: 0.8rem;
+  color: var(--gray-500);
+  margin-bottom: 2px;
+}
+
+.thankyou__alert {
+  background: #fef3c7;
+  border-radius: 12px;
+  padding: 14px 18px;
+  color: #92400e;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.thankyou__wa-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #25d366;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 700;
+  font-family: var(--font);
+  width: 100%;
+  margin-bottom: 12px;
+  transition: all 0.3s;
+}
+.demo-form__error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  padding: 12px 16px;
+  color: #b91c1c;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+/* ── Email field hint ── */
+.demo-form__field-hint {
+  font-size: 0.75rem;
+  color: #059669;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ── Optional badge next to label ── */
+.demo-form__label-badge {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 2px 8px;
+  border-radius: 100px;
+  vertical-align: middle;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* ── Thank-you: email sent notice ── */
+.thankyou__email-notice {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-radius: 12px;
+  padding: 14px 18px;
+  color: #065f46;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  text-align: left;
+}
+.thankyou__wa-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+}
+
+.thankyou__sign {
+  margin-top: 16px;
+  color: var(--gray-500);
+  font-size: 0.9rem;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .lead-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .lead-section {
+    padding: 64px 5%;
+  }
+
+  .demo-form-wrap {
+    padding: 28px 20px;
+  }
+
+  .lead-headline {
+    font-size: 1.9rem;
+  }
+}
