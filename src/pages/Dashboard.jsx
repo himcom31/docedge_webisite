@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import "./Dashboard.css";
 
-const API_BASE = "http://localhost:5000";
+const API_BASE = "https://software.docedge.in"
 
 export default function Dashboard() {
     const navigate = useNavigate();

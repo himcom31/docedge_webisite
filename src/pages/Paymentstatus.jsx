@@ -4,7 +4,7 @@ import axios from "axios";
 import PaymentReceiptPDF from "./Paymentreceiptpdf";
 
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_BASE = "https://software.docedge.in"
 
 // Inject spinner keyframe
 const injectStyles = () => {

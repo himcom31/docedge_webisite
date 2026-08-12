@@ -3,7 +3,7 @@ import { useGoogleReCaptcha } from "react-google-recaptcha-v3"; // ← NEW
 import axios from "axios";
 import "./Demoform.css";
 
-const API_URL = `http://localhost:5000/api/formlanding`;
+const API_URL = `https://software.docedge.in/api/formlanding`;
 
 export default function DemoForm() {
   const { executeRecaptcha } = useGoogleReCaptcha(); // ← NEW

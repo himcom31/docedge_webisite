@@ -2,7 +2,7 @@
 import { useState } from "react";
 import "./Authpage.css";
 
-const API_BASE = "http://localhost:5000";
+const API_BASE = "https://software.docedge.in"
 
 const INITIAL_REGISTER = {
   clinicName: "",
