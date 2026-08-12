@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3"; // ← NEW
 import axios from "axios";
-import "./DemoForm.css";
+import "./Demoform.css";
 
 const API_URL = `http://localhost:5000/api/formlanding`;
 
