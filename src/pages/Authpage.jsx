@@ -1,6 +1,6 @@
 // AuthPage.jsx
 import { useState } from "react";
-import "./AuthPage.css";
+import "./Authpage.css";
 
 const API_BASE = "http://localhost:5000";
 
