@@ -21,6 +21,9 @@ export default function Navbar() {
   }, []);
 
   const links = [
+      { label: "Home", id: "top" },  // ← yahan change
+
+
     { label: "Features", id: "features" },
     { label: "How It Works", id: "how" },
     { label: "Pricing", id: "pricing" },
@@ -39,13 +42,19 @@ export default function Navbar() {
       </div>
 
       <ul className="nav-links">
-        {links.map(({ label, id }) => (
-          <li key={id}>
-            <a href={`#${id}`} onClick={e => { e.preventDefault(); scrollTo(id); }}>
-              {label}
-            </a>
-          </li>
-        ))}
+        {links.map(({ label, id }) =>
+          id === "top" ? (
+            <li key={id}>
+              <Link to="/">Home</Link>
+            </li>
+          ) : (
+            <li key={id}>
+              <a href={`#${id}`} onClick={e => { e.preventDefault(); scrollTo(id); }}>
+                {label}
+              </a>
+            </li>
+          )
+        )}
       </ul>
 
       <div className="nav-actions">

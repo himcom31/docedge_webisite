@@ -34,34 +34,15 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   const columns = [
-    {
-      heading: "Product",
-      links: [
-        { label: "Features",      href: "#features"     },
-        { label: "How It Works",  href: "#how"          },
-        { label: "Pricing",       href: "#pricing"      },
-        { label: "Free Demo",     href: "#lead"         },
-      ],
-    },
-    {
-      heading: "Specialties",
-      links: [
-        { label: "General Physician", href: "#" },
-        { label: "Dermatologist",     href: "#" },
-        { label: "Paediatrician",     href: "#" },
-        { label: "Dentist",           href: "#" },
-        { label: "Orthopaedic",       href: "#" },
-        { label: "Gynaecologist",     href: "#" },
-      ],
-    },
+    
+    
     {
       heading: "Company",
       links: [
-        { label: "About Us",      href: "#" },
-        { label: "Blog",          href: "#" },
-        { label: "Careers",       href: "#" },
-        { label: "Privacy Policy",href: "#" },
-        { label: "Terms of Use",  href: "#" },
+        // { label: "About Us",      href: "#" },
+        // { label: "Blog",          href: "#" },
+        { label: "Privacy Policy",href: "/privacy-policy" },
+        { label: "Terms of Use",  href: "/term-condt." },
       ],
     },
   ];

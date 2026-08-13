@@ -477,7 +477,7 @@ export default function Home() {
       </div>
 
       {/* ── NAVBAR ── */}
-      <Navbar scrollTo={scrollTo} />
+      {/* <Navbar scrollTo={scrollTo} /> */}
 
       {/* ── HERO ── */}
       <section id="hero">
@@ -778,7 +778,7 @@ export default function Home() {
       <DemoForm />
 
       {/* ── FOOTER ── */}
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

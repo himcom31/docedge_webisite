@@ -208,7 +208,7 @@ export default function Dashboard() {
                                 </div>
                             </div>
                             <button className="db-plan-banner__btn" onClick={() => handleTabChange("plan")}>
-                                View Plan
+                                View your current Plan
                             </button>
                         </div>
 

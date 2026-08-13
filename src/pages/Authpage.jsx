@@ -77,7 +77,7 @@ window.location.href = redirectTo;
       if (!res.ok) throw new Error(data.message || "Registration failed.");
       localStorage.setItem("docedge_token", data.token);
       setSuccess("Account created! Redirecting…");
-      setTimeout(() => (window.location.href = "/dashboard"), 1500);
+      setTimeout(() => (window.location.href = "/"), 1500);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -342,11 +342,11 @@ window.location.href = redirectTo;
 
               <p className="auth-terms">
                 By registering you agree to our{" "}
-                <a href="/terms" className="auth-link">
+                <a href="/term-condt." className="auth-link">
                   Terms of Service
                 </a>{" "}
                 and{" "}
-                <a href="/privacy" className="auth-link">
+                <a href="/privacy-policy" className="auth-link">
                   Privacy Policy
                 </a>
                 .
