@@ -20,6 +20,9 @@ import {
 } from "lucide-react";
 
 const API_BASE = "https://software.docedge.in";
+// const API_BASE = "http://localhost:5000";
+
+
 
 const injectStyles = () => {
   if (document.getElementById("pd-styles")) return;

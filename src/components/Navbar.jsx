@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { LayoutDashboard, LogIn, Zap, MessageCircle } from "lucide-react";
 import "./Navbar.css";
 
 export default function Navbar() {
   const navRef = useRef(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const token = localStorage.getItem("docedge_token");
@@ -21,9 +23,7 @@ export default function Navbar() {
   }, []);
 
   const links = [
-      { label: "Home", id: "top" },  // ← yahan change
-
-
+    { label: "Home", id: "top" },
     { label: "Features", id: "features" },
     { label: "How It Works", id: "how" },
     { label: "Pricing", id: "pricing" },
@@ -31,8 +31,32 @@ export default function Navbar() {
     { label: "FAQ", id: "faq" },
   ];
 
-  const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  // ── GraminKart jaisa smart scroll ──────────────────────────────
+  const handleNavClick = (id) => {
+    if (id === "top") {
+      // Home pe navigate karo, phir top pe scroll
+      if (location.pathname !== "/") {
+        navigate("/");
+        setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 300);
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      return;
+    }
+
+    const scrollToSection = () => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+
+    // Agar already home page pe hain → directly scroll
+    if (location.pathname === "/") {
+      scrollToSection();
+    } else {
+      // Kisi aur route pe hain → pehle home pe jao, phir scroll
+      navigate("/");
+      setTimeout(scrollToSection, 300);
+    }
   };
 
   return (
@@ -42,19 +66,19 @@ export default function Navbar() {
       </div>
 
       <ul className="nav-links">
-        {links.map(({ label, id }) =>
-          id === "top" ? (
-            <li key={id}>
-              <Link to="/">Home</Link>
-            </li>
-          ) : (
-            <li key={id}>
-              <a href={`#${id}`} onClick={e => { e.preventDefault(); scrollTo(id); }}>
-                {label}
-              </a>
-            </li>
-          )
-        )}
+        {links.map(({ label, id }) => (
+          <li key={id}>
+            <a
+              href={id === "top" ? "/" : `#${id}`}
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick(id);
+              }}
+            >
+              {label}
+            </a>
+          </li>
+        ))}
       </ul>
 
       <div className="nav-actions">
@@ -69,7 +93,6 @@ export default function Navbar() {
           WhatsApp
         </a>
 
-        {/* Login/Dashboard — conditionally show */}
         {isLoggedIn ? (
           <Link to="/dashboard" className="btn-nav-ghost">
             <LayoutDashboard size={15} />
@@ -82,11 +105,13 @@ export default function Navbar() {
           </Link>
         )}
 
-        {/* Free Demo — hamesha dikhega */}
         <a
           href="#lead"
           className="btn-nav-cta"
-          onClick={e => { e.preventDefault(); scrollTo("lead"); }}
+          onClick={(e) => {
+            e.preventDefault();
+            handleNavClick("lead");
+          }}
         >
           <Zap size={15} />
           Free Demo

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 const API_BASE = "https://software.docedge.in"
+// const API_BASE = "http://localhost:5000"
+
 
 export default function ResetPassword() {
   const { token }             = useParams();

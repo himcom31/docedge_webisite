@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import "./Pricing.css";
 
 const API_URL ="https://software.docedge.in"
+// const API_URL ="http://localhost:5000"
+
 
 // ─── Reveal Hook ──────────────────────────────────────────────────────────────
 function useReveal(ref) {

@@ -5,6 +5,8 @@ import PaymentReceiptPDF from "./Paymentreceiptpdf";
 
 
 const API_BASE = "https://software.docedge.in"
+// const API_BASE = "http://localhost:5000"
+
 
 // Inject spinner keyframe
 const injectStyles = () => {

@@ -13,6 +13,7 @@ import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import DocEdgeTerms from './pages/termsCondition';
+import Pricing from './components/Pricing';
 
 const scrollTo = (id) => {
   const el = document.getElementById(id);
@@ -36,6 +37,9 @@ function App() {
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/term-condt." element={<DocEdgeTerms />} />
+          <Route path="/pricing" element={<Pricing />} />
+
+
 
 
 

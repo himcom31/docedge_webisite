@@ -3,6 +3,8 @@ import { useState } from "react";
 import "./Authpage.css";
 
 const API_BASE = "https://software.docedge.in"
+// const API_BASE = "http://localhost:5000"
+
 
 const INITIAL_REGISTER = {
   clinicName: "",
@@ -48,9 +50,9 @@ export default function AuthPage() {
       // Store token and redirect
       localStorage.setItem("docedge_token", data.token);
       const redirectTo = sessionStorage.getItem("redirect_after_login") || "/";
-sessionStorage.removeItem("redirect_after_login");  // clean up
-window.location.href = redirectTo;
-      
+      sessionStorage.removeItem("redirect_after_login");  // clean up
+      window.location.href = redirectTo;
+
     } catch (err) {
       setError(err.message);
     } finally {
@@ -91,7 +93,12 @@ window.location.href = redirectTo;
       {/* ── left panel ── */}
       <div className="auth-left">
         <div className="auth-brand">
-          <span className="auth-brand__icon">⚕</span>
+          <img
+            src="/footer-svg.png"
+            alt=""
+            className="auth-brand__icon"
+            style={{ width: "32px", height: "32px", objectFit: "contain" }}
+          />
           <span className="auth-brand__name">DocEdge</span>
         </div>
         <div className="auth-left__body">
