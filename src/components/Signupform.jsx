@@ -11,8 +11,12 @@ import {
 } from "lucide-react";
 
 // const API_BASE = "http://localhost:5000";
-const API_BASE = "https://software.docedge.in"
+const API_BASE = "https://software.docedge.in";
 
+// Cashfree mode: backend ke CASHFREE_ENV ke saath match hona chahiye.
+// Live ke liye "production", test ke liye "sandbox".
+const CASHFREE_MODE = "production";
+const CASHFREE_SDK_URL = "https://sdk.cashfree.com/js/v3/cashfree.js";
 
 const DEGREE_OPTIONS = ["MBBS", "BDS", "MD", "MS", "DNB", "BHMS", "BAMS", "MDS", "DM", "MCh"];
 
@@ -596,6 +600,26 @@ const injectStyles = () => {
   document.head.appendChild(style);
 };
 
+// ── Cashfree SDK loader ───────────────────────────────────────────────────────
+// Script ek hi baar load hoti hai. Load fail hone par reject karta hai, taaki UI atke nahi.
+const loadCashfreeSdk = () =>
+  new Promise((resolve, reject) => {
+    if (window.Cashfree) return resolve();
+
+    const existing = document.querySelector(`script[src="${CASHFREE_SDK_URL}"]`);
+    if (existing) {
+      existing.addEventListener("load", resolve);
+      existing.addEventListener("error", () => reject(new Error("Cashfree SDK load nahi hua")));
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = CASHFREE_SDK_URL;
+    script.onload = resolve;
+    script.onerror = () => reject(new Error("Cashfree SDK load nahi hua"));
+    document.head.appendChild(script);
+  });
+
 // ── Template Preview Modal ────────────────────────────────────────────────────
 const ZOOM_STEPS = [0.5, 0.75, 1, 1.5, 2, 3];
 const ZOOM_DEFAULT_IDX = 2;
@@ -695,7 +719,7 @@ export default function SignupForm() {
     password: "", mobile: "", address: "",
     interval: "monthly",
     // Professional
-    degrees: [],          // ← multi-select array
+    degrees: [],
     otherDegree: "",
     specialization: "",
     otherSpecialization: "",
@@ -786,7 +810,6 @@ export default function SignupForm() {
         degrees: already
           ? prev.degrees.filter(d => d !== degree)
           : [...prev.degrees, degree],
-        // Clear otherDegree text if "Other" is being deselected
         otherDegree: already && degree === "Other" ? "" : prev.otherDegree,
       };
     });
@@ -863,42 +886,36 @@ export default function SignupForm() {
       setSubmitting(true);
       const fd = new FormData();
 
-      // Basic fields
-      fd.append("name",      form.name);
-      fd.append("clinicName",form.clinicName);
-      fd.append("email",     form.email);
-      fd.append("password",  form.password);
-      fd.append("mobile",    form.mobile);
-      fd.append("address",   form.address);
-      fd.append("interval",  form.interval);
-      fd.append("planId",    planId);
+      fd.append("name",       form.name);
+      fd.append("clinicName", form.clinicName);
+      fd.append("email",      form.email);
+      fd.append("password",   form.password);
+      fd.append("mobile",     form.mobile);
+      fd.append("address",    form.address);
+      fd.append("interval",   form.interval);
+      fd.append("planId",     planId);
 
-      // Resolved degrees — replace "Other" with the typed value
+      // "Other" ki jagah user ka likha hua degree bhejein
       const finalDegrees = form.degrees.map(d =>
         d === "Other" ? form.otherDegree.trim() : d
       );
       fd.append("degrees", JSON.stringify(finalDegrees));
-      // If your backend expects a single string: fd.append("degree", finalDegrees.join(", "));
 
-      // Resolved specialization
       const finalSpec = form.specialization === "Other"
         ? form.otherSpecialization.trim()
         : form.specialization;
       fd.append("specialization", finalSpec);
 
-      // Other professional fields
       fd.append("registrationNo", form.medicalRegNo.trim());
       fd.append("experience",     form.experience);
       fd.append("about",          form.about.trim());
 
-      // Education — filter out completely empty rows
+      // Khali education rows hata dein
       const cleanEdu = education.filter(r => r.degree.trim() || r.institution.trim() || r.year.trim());
       fd.append("education", JSON.stringify(cleanEdu));
 
-      // Languages
       fd.append("languages", JSON.stringify(selectedLanguages));
 
-      // Template
       if (selectedTpl?.type === "preset") {
         fd.append("templateId", selectedTpl.id);
       } else if (selectedTpl?.type === "custom" && customFile) {
@@ -910,22 +927,23 @@ export default function SignupForm() {
       });
 
       if (!data.success || !data.paymentSessionId) {
-        setError("Could not create order. Please try again."); return;
+        setError("Could not create order. Please try again.");
+        return;
       }
 
-      await new Promise((resolve) => {
-        if (window.Cashfree) { resolve(); return; }
-        const script = document.createElement("script");
-        script.src = "https://sdk.cashfree.com/js/v3/cashfree.js";
-        script.onload = resolve;
-        document.head.appendChild(script);
+      await loadCashfreeSdk();
+
+      const cashfree = window.Cashfree({ mode: CASHFREE_MODE });
+      await cashfree.checkout({
+        paymentSessionId: data.paymentSessionId,
+        redirectTarget: "_self",
       });
-
-      const cashfree = window.Cashfree({ mode: "sandbox" });
-      cashfree.checkout({ paymentSessionId: data.paymentSessionId, redirectTarget: "_self" });
-
     } catch (err) {
-      setError(err.response?.data?.message || "Signup failed. Please try again.");
+      setError(
+        err.response?.data?.message ||
+        err.message ||
+        "Signup failed. Please try again."
+      );
     } finally {
       setSubmitting(false);
     }
@@ -1061,7 +1079,6 @@ export default function SignupForm() {
                     )}
                   </label>
 
-                  {/* Chip grid */}
                   <div className="de-degree-grid">
                     {DEGREE_OPTIONS.map(d => (
                       <button key={d} type="button"
@@ -1077,7 +1094,6 @@ export default function SignupForm() {
                     </button>
                   </div>
 
-                  {/* Selected degrees as removable tags */}
                   {form.degrees.length > 0 && (
                     <div className="de-degree-summary">
                       {form.degrees.map(d => (
@@ -1096,7 +1112,6 @@ export default function SignupForm() {
                     </div>
                   )}
 
-                  {/* "Other" text input */}
                   {form.degrees.includes("Other") && (
                     <div className="de-input-wrap" style={{ marginTop: 10 }}>
                       <span className="de-input-icon"><BookOpen size={15} /></span>
