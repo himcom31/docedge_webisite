@@ -23,7 +23,7 @@ const scrollTo = (id) => {
 
 function App() {
   return (
-    <GoogleReCaptchaProvider reCaptchaKey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}>
+    <GoogleReCaptchaProvider reCaptchaKey="6LdGnX4tAAAAAFrRpJWwdQGNWdRM0NaUtUtQ29pa">
       <div className="App">
         <Navbar scrollTo={scrollTo} />
         <Routes>
